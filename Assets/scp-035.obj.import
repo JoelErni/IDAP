@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://grs4xlsnrovv"
+path="res://.godot/imported/scp-035.obj-961fd9c7f82f25ba46211b3f52d3649f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/scp-035.obj-961fd9c7f82f25ba46211b3f52d3649f.mesh"]
+
+source_file="res://Assets/scp-035.obj"
+dest_files=["res://.godot/imported/scp-035.obj-961fd9c7f82f25ba46211b3f52d3649f.mesh", "res://.godot/imported/scp-035.obj-961fd9c7f82f25ba46211b3f52d3649f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

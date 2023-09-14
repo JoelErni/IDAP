@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cuv3gold62qv4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a4y2e"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_juqdk"]
+width = 128
+height = 128
+seamless = true
+seamless_blend_skirt = 0.409
+noise = SubResource("FastNoiseLite_a4y2e")
+
+[resource]
+albedo_color = Color(0.611765, 0.611765, 0.611765, 1)
+albedo_texture = SubResource("NoiseTexture2D_juqdk")
+uv1_scale = Vector3(-0.115, -0.115, -0.115)
+uv1_offset = Vector3(0, 5.725, 0)
+uv1_triplanar = true

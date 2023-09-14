@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8pd2f31nshbd"]
+
+[ext_resource type="Material" uid="uid://ct1fliwhqvgdq" path="res://Assets/default.tres" id="1_i0d3n"]
+[ext_resource type="Script" path="res://player.gd" id="2_dnqwv"]
+[ext_resource type="Material" uid="uid://bewmqcafb7pyd" path="res://Assets/Player/body.tres" id="2_eg5or"]
+[ext_resource type="Material" uid="uid://cuv3gold62qv4" path="res://Assets/Player/mask.tres" id="3_7brdu"]
+[ext_resource type="ArrayMesh" uid="uid://grs4xlsnrovv" path="res://Assets/scp-035.obj" id="4_p1bbi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06g28"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5t304"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_hby13"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8amhj"]
+points = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7t2b"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vgjnd"]
+
+[node name="Mockup-level" type="Node3D"]
+
+[node name="Map" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000751913, -0.00113821, -0.000899434)
+
+[node name="Floor" type="StaticBody3D" parent="Map"]
+transform = Transform3D(25, 0, 0, 0, 0.25, 0, 0, 0, 25, 0, 0, 0)
+
+[node name="Floor-collision" type="CollisionShape3D" parent="Map/Floor"]
+shape = SubResource("BoxShape3D_06g28")
+
+[node name="Floor-mesh" type="MeshInstance3D" parent="Map/Floor"]
+material_override = ExtResource("1_i0d3n")
+mesh = SubResource("BoxMesh_5t304")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map"]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 7.31975, 0)
+
+[node name="Slope" type="StaticBody3D" parent="Map"]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.6, -4.447)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Slope"]
+material_override = ExtResource("1_i0d3n")
+mesh = SubResource("PrismMesh_hby13")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Slope"]
+shape = SubResource("ConvexPolygonShape3D_8amhj")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25574, 0.993505)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("2_dnqwv")
+
+[node name="Player-model" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_b7t2b")
+
+[node name="Player-mesh" type="MeshInstance3D" parent="Player/Player-model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0102663, 0, -0.0173302)
+material_override = ExtResource("2_eg5or")
+mesh = SubResource("CapsuleMesh_vgjnd")
+skeleton = NodePath("")
+
+[node name="Player-face" type="MeshInstance3D" parent="Player/Player-model"]
+transform = Transform3D(-0.05, 6.83797e-10, -4.31732e-09, 0, 0.0493844, 0.00782173, 4.37114e-09, 0.00782173, -0.0493844, 0.001, 0.184, -0.57)
+material_override = ExtResource("3_7brdu")
+mesh = ExtResource("4_p1bbi")
+skeleton = NodePath("../../..")
+
+[node name="Player-camera" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.731354, 0.681998, 0, -0.681998, 0.731354, 0.00238252, 7.91, 6.27179)
+fov = 39.7
