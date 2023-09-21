@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b8pd2f31nshbd"]
+[gd_scene load_steps=34 format=3 uid="uid://b8pd2f31nshbd"]
 
 [ext_resource type="Material" uid="uid://ct1fliwhqvgdq" path="res://Assets/default.tres" id="1_i0d3n"]
 [ext_resource type="Script" path="res://player.gd" id="2_dnqwv"]
@@ -8,7 +8,6 @@
 [ext_resource type="Material" uid="uid://cuv3gold62qv4" path="res://Assets/Player/mask.tres" id="3_7brdu"]
 [ext_resource type="FontFile" uid="uid://bgbvjvj0yun65" path="res://PRIMETIME © PERSONAL USE ONLY.ttf" id="4_3riuy"]
 [ext_resource type="ArrayMesh" uid="uid://grs4xlsnrovv" path="res://Assets/scp-035.obj" id="4_p1bbi"]
-[ext_resource type="Script" path="res://TextBox.gd" id="9_o6xun"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_06g28"]
 
@@ -110,7 +109,7 @@ advance_condition = &"show"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h0nkl"]
 advance_mode = 2
-advance_expression = "pass"
+advance_expression = "print()"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_7e2f1"]
 states/End/position = Vector2(883.5, 120.813)
@@ -128,36 +127,6 @@ graph_offset = Vector2(-389, 79)
 
 [sub_resource type="QuadMesh" id="QuadMesh_ateme"]
 
-[sub_resource type="Animation" id="Animation_5q6ck"]
-resource_name = "brighten"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GUI/MeshInstance2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0.784314), Color(0, 0, 0, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GUI/TextBox")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"hide_text"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_fbxi1"]
 resource_name = "darken"
 length = 0.5
@@ -171,21 +140,23 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.784314)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.196078)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GUI/TextBox")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"show_text"
-}]
+
+[sub_resource type="Animation" id="Animation_5q6ck"]
+resource_name = "brighten"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GUI/MeshInstance2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.196078), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7nvrp"]
@@ -194,29 +165,13 @@ _data = {
 "darken": SubResource("Animation_fbxi1")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8vtl8"]
-animation = &"brighten"
+[sub_resource type="Animation" id="Animation_fnoku"]
+resource_name = "darken"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u8c0w"]
-animation = &"darken"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xwm7f"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d7djd"]
-advance_mode = 2
-advance_condition = &"show"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ptowy"]
-advance_mode = 2
-advance_condition = &"hide"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ilwp5"]
-states/brighten/node = SubResource("AnimationNodeAnimation_8vtl8")
-states/brighten/position = Vector2(658.5, 71)
-states/darken/node = SubResource("AnimationNodeAnimation_u8c0w")
-states/darken/position = Vector2(381, 80)
-transitions = ["Start", "darken", SubResource("AnimationNodeStateMachineTransition_xwm7f"), "brighten", "darken", SubResource("AnimationNodeStateMachineTransition_d7djd"), "darken", "brighten", SubResource("AnimationNodeStateMachineTransition_ptowy")]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lwold"]
+_data = {
+"darken": SubResource("Animation_fnoku")
+}
 
 [node name="Mockup-level" type="Node3D"]
 
@@ -305,33 +260,17 @@ fov = 39.7
 [node name="GUI" type="Node2D" parent="Player"]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Player/GUI"]
-modulate = Color(0, 0, 0, 0)
+modulate = Color(0, 0, 0, 0.196078)
 position = Vector2(578.71, 327.21)
 scale = Vector2(1158.58, 655.58)
 mesh = SubResource("QuadMesh_ateme")
-
-[node name="TextBox" type="Label" parent="Player/GUI"]
-anchors_preset = -1
-offset_left = 246.0
-offset_top = 373.0
-offset_right = 918.0
-offset_bottom = 595.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_3riuy")
-theme_override_font_sizes/font_size = 36
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("9_o6xun")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 libraries = {
 "": SubResource("AnimationLibrary_7nvrp")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="Player"]
-tree_root = SubResource("AnimationNodeStateMachine_ilwp5")
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/conditions/hide = false
-parameters/conditions/show = false
+[node name="Player_AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_lwold")
+}

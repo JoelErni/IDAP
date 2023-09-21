@@ -8,12 +8,15 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var target_velocity = Vector3.ZERO
 
 func _process(delta):
+	delta = delta
+
 	if position.y < -100:
 		position = Vector3(0, 10, 0)
 		velocity = Vector3.ZERO
 
 # Movement
 func _physics_process(delta):
+	delta = delta
 
 	if not is_on_floor():
 		velocity.y -= gravity * delta
